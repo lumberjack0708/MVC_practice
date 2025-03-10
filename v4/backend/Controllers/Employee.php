@@ -3,30 +3,28 @@ require_once "./mysql.php";
 class Employee
 {
     public function getUsers(){
-    $response = openDB();
-    if ($response['status'] == 200) {
-        $conn = $response['result'];
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
-            $sql = "SELECT  *  FROM  `user` WHERE `id`=?";
-            $stmt = $conn->prepare($sql);
-            $result = $stmt->execute(array($id));
-        } else {
-            $sql = "SELECT  *  FROM  `user`";
-            $stmt = $conn->prepare($sql);
-            $result = $stmt->execute();
+        $response = openDB();
+        if ($response['status'] == 200) {
+            $conn = $response['result'];
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                $sql = "SELECT  *  FROM  `user` WHERE `id`=?";
+                $stmt = $conn->prepare($sql);
+                $result = $stmt->execute(array($id));
+            } else {
+                $sql = "SELECT  *  FROM  `user`";
+                $stmt = $conn->prepare($sql);
+                $result = $stmt->execute();
+            }
+            if ($result) {
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                // 為標準化輸出做準備
+                return $this->response(200, "查詢成功", $rows);
+            } else {
+                return $this->response(400, "SQL錯誤");
+            }
         }
-        if ($result) {
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $response['status'] = 200; //OK
-            $response['message'] = "查詢成功";
-            $response['result'] = $rows;
-        } else {
-            $response['status'] = 400; //Bad Request
-            $response['message'] = "SQL錯誤";
-        }
-    }
-    return ($response);
+        return ($response);
     }
     public function newUser(){
         $id = $_POST['id'];
@@ -42,23 +40,17 @@ class Employee
             $result = $stmt->execute(array($id, $password, $email, $phone));
             if ($result) {
                 $count = $stmt->rowCount();
-                if ($count < 1) {
-                    $response['status'] = 204; //No Content
-                    $response['message'] = "新增失敗";
-                } else {
-                    $response['status'] = 200; //OK
-                    $response['message'] = "新增成功";
-                }
+                // 條件式 ? 結果1 : 結果2
+                return ($count<1) ? $this->response(204, "新增失敗") : 
+                $this->response(200, "新增成功");
             } else {
-                $response['status'] = 400; //Bad Request
-                $response['message'] = "SQL錯誤";
+                return $this->response(400, "SQL錯誤");
             }
         }
         return ($response);
     }
     public function removeUser(){
         $id = $_POST['id'];
-
         $response = openDB();
         if ($response['status'] == 200) {
             $conn = $response['result'];
@@ -67,16 +59,10 @@ class Employee
             $result = $stmt->execute(array($id));
             if ($result) {
                 $count = $stmt->rowCount();
-                if ($count < 1) {
-                    $response['status'] = 204; //No Content
-                    $response['message'] = "刪除失敗";
-                } else {
-                    $response['status'] = 200; //OK
-                    $response['message'] = "刪除成功";
-                }
+                return ($count<1) ? $this->response(204, "刪除失敗") :
+                $this->response(200, "刪除成功");
             } else {
-                $response['status'] = 400; //Bad Request
-                $response['message'] = "SQL錯誤";
+                return $this->response(400, "SQL錯誤");
             }
         }
         return ($response);
@@ -95,19 +81,20 @@ class Employee
             $result = $stmt->execute(array($password, $email, $phone, $id));
             if ($result) {
                 $count = $stmt->rowCount();
-                if ($count < 1) {
-                    $response['status'] = 204; //No Content
-                    $response['message'] = "更新失敗";
-                } else {
-                    $response['status'] = 200; //OK
-                    $response['message'] = "更新成功";
-                }
+                return ($count<1) ? $this->response(204, "更新失敗") :
+                $this->response(200, "更新成功");
             } else {
-                $response['status'] = 400; //Bad Request
-                $response['message'] = "SQL錯誤";
+                return $this->response(400, "SQL錯誤");
             }
         }
         return ($response);
+    }
+    // 每一個controller執行結束之後，強制執行標準化輸出
+    private function response($status,$messaage,$result=NULL){
+        $resp['status'] = $status;
+        $resp['message'] = $messaage;
+        $resp['result'] = $result;
+        return $resp;
     }
 }
 

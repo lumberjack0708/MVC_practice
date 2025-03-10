@@ -1,14 +1,14 @@
 import doUpdate from './doUpdate.js';
 export default function showUpdatePage(){
     const id = document.getElementsByName("id");
-    let idValue;
-    for(let i=0; i<id.length; i++){
-        if(id[i].checked){
-            idValue = id[i].value;
-        }
-    };
+    // let idValue;
+    // for(let i=0; i<id.length; i++){
+    //     if(id[i].checked){
+    //         idValue = id[i].value;
+    //     }
+    // };
     let data = {
-        "id": idValue,
+        "id": id,
     };
     axios.post("../backend/index.php?action=getUsers",Qs.stringify(data))
     .then(res => {
