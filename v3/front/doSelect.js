@@ -5,24 +5,34 @@ export default function doSelect(){
         switch(response['status']){
             case 200:
                 const rows = response['result'];
-                let str = '<table>';
+                // 使用外部的 CSS 檔案來美化表格
+                let str = '<table class="custom-table">';
+                // 表頭
+                str += '<thead><tr>';
+                str += '<th>編號</th>';
+                str += '<th>密碼</th>';
+                str += '<th>email</th>';
+                str += '<th>電話</th>';
+                str += '</tr></thead>';
+                // 表身
+                str += '<tbody>';
                 rows.forEach(element => {
-                    str += "<tr>";
+                    str += "<br><tr>";
                     str += "<td>" + element['id'] + "</td>";
                     str += "<td>" + element['password'] + "</td>";
                     str += "<td>" + element['email'] + "</td>";
                     str += "<td>" + element['phone'] + "</td>";
                     str += "</tr>";
                 });
-                str += '</table>';
-                document.getElementById("content").innerHTML=str;
+                str += '</tbody></table>';
+                document.getElementById("content").innerHTML = str;
                 break;
             default:
-                document.getElementById("content").innerHTML=response['message'];
+                document.getElementById("content").innerHTML = response['message'];
                 break;
         }
     })
     .catch(err => {
-        document.getElementById("content").innerHTML=err; 
-    }) 
+        document.getElementById("content").innerHTML = err;
+    })
 }
