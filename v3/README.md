@@ -1,2 +1,2 @@
-# EDP 
-vision1 主要是在講解MVC的三種架構：Model、View、Controller，利用物件導向的寫法讓php語法更具維護性，並且增加了controller的寫法
+# 練習：員工資料的CRUD
+這是一個練習，需要自行新增名為user的資料表，內有四個varchar欄位，分別為id、passowrd、email、phone
