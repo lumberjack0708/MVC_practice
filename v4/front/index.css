@@ -1,0 +1,27 @@
+table.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+table.custom-table th, table.custom-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+table.custom-table th {
+    background-color: #DFF3E4;
+    color: #333;
+}
+button.custom-btn {
+    background-color: #cecece;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    /* border-radius: 5px; */
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+button.custom-btn:hover {
+    background-color: #c4c4c4;
+}
