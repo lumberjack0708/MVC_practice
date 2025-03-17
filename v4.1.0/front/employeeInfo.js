@@ -27,7 +27,7 @@ export default function employeeInfo(){
                     str += `<td>` + element['password'] + `</td>`;
                     str += `<td>` + element['email'] + `</td>`;
                     str += `<td>` + element['phone'] + `</td>`;
-                    str += `<td style="text-align: center;"><button name='updateUser' class="custom-btn">修改</button>&ensp;<button name='deleteUser' class="custom-btn">刪除</button></td>`;
+                    str += `<td style="text-align: center;"><button name='updateUser' class="custom-btn">修改</button>&ensp;<button name='deleteUser' class="custom-btn delete-btn">刪除</button></td>`;
                     str += `</tr>`;
                 });
                 str += `</tbody></table>`;
