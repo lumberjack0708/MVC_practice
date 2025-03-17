@@ -10,18 +10,25 @@ export default function employeeInfo(){
             case 200:
                 const rows = response['result'];
                 //作畫面
-                let str = `<table>`;
-                str += `<tr><td>員工編號</td><td>密碼</td><td>email</td><td>電話</td><td><button id='newUser'>新增使用者</button></td></tr>`;
+                let str = `<br/><br/><table class="custom-table">`;
+                str += `<thead><tr>
+                          <th>員工編號</th>
+                          <th>密碼</th>
+                          <th>email</th>
+                          <th>電話</th>
+                          <th style="text-align: center;"><button id='newUser' class="custom-btn">新增使用者</button></th>
+                        </tr></thead>
+                        <tbody>`;
                 rows.forEach(element => {
                     str += `<tr>`;
                     str += `<td name='id'>` + element['id'] + `</td>`;
                     str += `<td>` + element['password'] + `</td>`;
                     str += `<td>` + element['email'] + `</td>`;
                     str += `<td>` + element['phone'] + `</td>`;
-                    str += `<td><button name='updateUser'>修改</button><button name='deleteUser'>刪除</button></td>`;
+                    str += `<td style="text-align: center;"><button name='updateUser' class="custom-btn">修改</button>&ensp;<button name='deleteUser' class="custom-btn">刪除</button></td>`;
                     str += `</tr>`;
                 });
-                str += `</table>`;
+                str += `</tbody></table>`;
                 document.getElementById("content").innerHTML=str;
                 
                 //設定事件(新增使用者, 修改, 刪除) 

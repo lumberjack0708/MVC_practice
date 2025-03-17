@@ -1,5 +1,4 @@
-export default function doDelete(){
-    const id = document.getElementsByName("id");
+export default function doDelete(id){
     // let idValue;
     // for(let i=0; i<id.length; i++){
     //     if(id[i].checked){

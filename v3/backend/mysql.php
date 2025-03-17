@@ -1,7 +1,7 @@
 <?php
 function openDB() {
     $db_host = 'localhost';
-    $db_name = 'school';
+    $db_name = 'erp';
     $db_user = 'root';
     $db_password = '';
     $dsn = "mysql:host=$db_host;dbname=$db_name;charset=utf8";
