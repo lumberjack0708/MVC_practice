@@ -6,4 +6,13 @@ window.onload = function(){
     document.getElementById("employee").onclick = function(){
         employeeInfo();
     };
+    document.getElementById("product").onclick = function(){
+        productInfo();
+    };
+    document.getElementById("role").onclick = function(){
+        roleInfo();
+    };
+    document.getElementById("supplier").onclick = function(){
+        supplierInfo();
+    };
 };
